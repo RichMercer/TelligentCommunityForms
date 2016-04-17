@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using Telligent.Evolution.Extensibility;
 using Telligent.Evolution.Extensibility.Api.Version1;
 using Telligent.Evolution.Extensibility.Content.Version1;
-using Telligent.Evolution.Extensibility.UI.Version1;
 using Telligent.Evolution.Extensibility.Urls.Version1;
 using Telligent.Evolution.Extensibility.Version1;
 using TelligentCommunityForms.Plugins;
-using INavigableApplicationType = Telligent.Evolution.Components.INavigableApplicationType;
 
 namespace TelligentCommunityForms
 {
-    public class TelligentCommunityFormsPlugin : INavigableApplicationType, IApplicationNavigable, ITranslatablePlugin, IPluginGroup, IApplicationType
+    public class TelligentCommunityFormsPlugin : INavigableApplicationType, IApplicationNavigable, ITranslatablePlugin, IPluginGroup, IContentType
     {
         private ITranslatablePluginController _translationController;
 
@@ -33,14 +31,14 @@ namespace TelligentCommunityForms
 
         #endregion
 
-        #region IApplicationType Members
-
         public IEnumerable<Type> Plugins => new List<Type>
         {
             typeof(FormsContainerPanels),
             typeof(FormsExtensionsPlugin),
             typeof(FormsUrlExtensionsPlugin)
         };
+
+        #region IApplicationType Members
 
         public string ApplicationTypeName => _translationController.GetLanguageResourceValue("application_type_name");
 
@@ -71,7 +69,7 @@ namespace TelligentCommunityForms
 
         public Guid ApplicationTypeId => Constants.ApplicationTypeId;
 
-        public void RegisterUrls(IUrlController controller)
+        void IApplicationNavigable.RegisterUrls(IUrlController controller)
         {
             controller.AddPage("forms.list", "", null, null, "forms-list", new PageDefinitionOptions
             {
@@ -84,8 +82,6 @@ namespace TelligentCommunityForms
       <regions>
         <region regionName=""Content"">
           <contentFragments>
-            <contentFragment type=""Telligent.Evolution.ScriptedContentFragments.ScriptedContentFragment, Telligent.Evolution.ScriptedContentFragments::e7f32628f5e24f59ad25cf309d9178bf"" showHeader=""False"" cssClassAddition=""no-wrapper with-spacing responsive-1"" isLocked=""False"" configuration=""fragmentHeader=%24%7Bresource%3ALeaderboard_Name%7D&amp;visible=False"" />
-            <contentFragment type=""Telligent.Evolution.ScriptedContentFragments.ScriptedContentFragment, Telligent.Evolution.ScriptedContentFragments::f68e8c5ecc7c42bd950b83b3967abd61"" showHeader=""True"" cssClassAddition=""top-border with-spacing with-header responsive-1"" isLocked=""False"" configuration=""fragmentHeader=%24%7Bresource%3ALeaderboardList_Name%7D&amp;group=IncludeSubGroups%3D%2520False%26Group%3D0%26GroupPath%3D&amp;pageSize=10&amp;leadersSize=5"" />
           </contentFragments>
         </region>
       </regions>
@@ -93,7 +89,7 @@ namespace TelligentCommunityForms
     </contentFragmentPage>"
             });
 
-            controller.AddPage("forms.view", "", null, null, "forms-view", new PageDefinitionOptions
+            controller.AddPage("forms.view", "{id}", null, null, "forms-view", new PageDefinitionOptions
             {
                 ParseContext = null,
                 HasApplicationContext = false,
@@ -104,8 +100,6 @@ namespace TelligentCommunityForms
       <regions>
         <region regionName=""Content"">
           <contentFragments>
-            <contentFragment type=""Telligent.Evolution.ScriptedContentFragments.ScriptedContentFragment, Telligent.Evolution.ScriptedContentFragments::e7f32628f5e24f59ad25cf309d9178bf"" showHeader=""False"" cssClassAddition=""no-wrapper with-spacing responsive-1"" isLocked=""False"" configuration=""fragmentHeader=%24%7Bresource%3ALeaderboard_Name%7D&amp;visible=False"" />
-            <contentFragment type=""Telligent.Evolution.ScriptedContentFragments.ScriptedContentFragment, Telligent.Evolution.ScriptedContentFragments::f68e8c5ecc7c42bd950b83b3967abd61"" showHeader=""True"" cssClassAddition=""top-border with-spacing with-header responsive-1"" isLocked=""False"" configuration=""fragmentHeader=%24%7Bresource%3ALeaderboardList_Name%7D&amp;group=IncludeSubGroups%3D%2520False%26Group%3D0%26GroupPath%3D&amp;pageSize=10&amp;leadersSize=5"" />
           </contentFragments>
         </region>
       </regions>
@@ -123,13 +117,32 @@ namespace TelligentCommunityForms
             _translationController = controller;
         }
 
+        IContent IContentType.Get(Guid contentId)
+        {
+            var form = new Form
+            {
+                Id = 1,
+                Title = "Knowledge Base",
+                ApplicationId = contentId,
+                CreatedDate = DateTime.Now,
+                LastUpdatedDate = DateTime.Now,
+                GroupId = 1
+            };
+
+            return form;
+        }
+
+        public void AttachChangeEvents(IContentStateChanges stateChanges)
+        {
+        }
+
         public Translation[] DefaultTranslations
         {
             get
             {
                 var t = new Translation("en-us");
 
-                t.Set("application-plugin-name", "Telligent Community Forms & Surveys");
+                t.Set("application-plugin-name", "Forms & Surveys");
                 t.Set("application-plugin-desc", "Enables the creation of forms and surveys in Telligent Community.");
                 t.Set("application_type_name", "Forms & Surveys");
                 t.Set("page-forms-list", "Forms & Surveys");
@@ -139,7 +152,12 @@ namespace TelligentCommunityForms
             }
         }
 
-        #endregion
+        public string ContentTypeName => _translationController.GetLanguageResourceValue("application_type_name");
 
+        public Guid ContentTypeId => Constants.ApplicationTypeId;
+
+        public Guid[] ApplicationTypes => new[] { ApplicationTypeId };
+
+        #endregion
     }
 }

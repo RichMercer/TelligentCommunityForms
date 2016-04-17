@@ -11,7 +11,7 @@ namespace TelligentCommunityForms.Plugins
 
         public string ExtensionName => "forms_v1_form";
 
-        public string Name => "Form Extensions";
+        public string Name => "Forms Widget Extensions";
 
         public void Initialize()
         {
@@ -24,9 +24,10 @@ namespace TelligentCommunityForms.Plugins
         {
             return new Form
             {
-                Title = "Test Form",
-                Body = "This is a hard coded form loaded via the widget extensions. Please fix me.",
-                Id = id
+                Title = "Test Form " + id,
+                Body = "This is a hard coded survey loaded via the widget extensions. Please fix me.",
+                Id = id,
+                GroupId = 1
             };
 
         }

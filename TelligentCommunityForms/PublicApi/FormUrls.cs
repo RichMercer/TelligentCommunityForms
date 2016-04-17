@@ -7,7 +7,7 @@ namespace TelligentCommunityForms.PublicApi
     {
         public string Forms()
         {
-            return TEApi.Url.BuildUrl("forms.list");
+            return TEApi.Url.BuildUrl("forms.list", 1);
         }
 
         public string Form(int formId)
@@ -15,11 +15,14 @@ namespace TelligentCommunityForms.PublicApi
             var form = new Form
             {
                 Title = "New Form",
-                Body = "Test entity."
+                Body = "Test entity",
+                Id = formId,
+                GroupId = 1
             };
-            return TEApi.Url.BuildUrl("forms.view", new Dictionary<string, string>
+
+            return TEApi.Url.BuildUrl("forms.view", form.GroupId, new Dictionary<string, string>
                 {
-                    { "AppKey", form.ApplicationKey }
+                    { "id", form.Id.ToString() }
                 });
         }
     }

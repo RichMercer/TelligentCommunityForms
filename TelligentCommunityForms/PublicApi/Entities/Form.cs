@@ -3,6 +3,7 @@ using Telligent.Evolution.Extensibility;
 using Telligent.Evolution.Extensibility.Api.Entities.Version1;
 using Telligent.Evolution.Extensibility.Api.Version1;
 using Telligent.Evolution.Extensibility.Content.Version1;
+using TelligentCommunityForms.PublicApi;
 
 namespace TelligentCommunityForms
 {
@@ -24,7 +25,7 @@ namespace TelligentCommunityForms
             return Title;
         }
 
-        public string Url => $"/{Constants.PathDelimiter}/{ApplicationKey}";
+        public string Url => new FormUrls().Form(Id);
 
         public Guid ContentId { get; set; }
         

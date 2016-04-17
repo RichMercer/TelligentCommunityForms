@@ -16,7 +16,7 @@ namespace TelligentCommunityForms.Plugins
 
         public string ExtensionName => "forms_v1_formUrls";
 
-        public string Name => "Form Extensions";
+        public string Name => "Forms URL Widget Extensions";
 
         public void Initialize()
         {
