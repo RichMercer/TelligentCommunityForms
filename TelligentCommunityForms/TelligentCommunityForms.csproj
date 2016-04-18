@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="FormsContainerPanels.cs" />
+    <Compile Include="Plugins\FormsWidgetProvider.cs" />
     <Compile Include="Plugins\FormsExtensions.cs" />
     <Compile Include="Plugins\FormUrlsExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -12,7 +12,7 @@ namespace TelligentCommunityForms.Plugins
     {
         public string Description => "Provides widget extensions for Forms and Surveys URL's.";
 
-        public object Extension => new FormUrlExtensions();
+        public object Extension => new FormUrls();
 
         public string ExtensionName => "forms_v1_formUrls";
 
@@ -20,19 +20,6 @@ namespace TelligentCommunityForms.Plugins
 
         public void Initialize()
         {
-        }
-    }
-
-    public class FormUrlExtensions
-    {
-        public string Home()
-        {
-            return new FormUrls().Forms();
-        }
-
-        public string Form(int formId)
-        {
-            return new FormUrls().Form(formId);
         }
     }
 }

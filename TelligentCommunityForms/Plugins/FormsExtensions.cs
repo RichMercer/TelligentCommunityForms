@@ -1,5 +1,6 @@
 ﻿using Telligent.Evolution.Extensibility.Api.Entities.Version1;
 using Telligent.Evolution.Extensibility.UI.Version1;
+using TelligentCommunityForms.PublicApi;
 
 namespace TelligentCommunityForms.Plugins
 {
@@ -7,7 +8,7 @@ namespace TelligentCommunityForms.Plugins
     {
         public string Description => "Provides widget extensions for Forms and Surveys.";
 
-        public object Extension => new FormExtensions();
+        public object Extension => new Forms();
 
         public string ExtensionName => "forms_v1_form";
 
@@ -15,31 +16,6 @@ namespace TelligentCommunityForms.Plugins
 
         public void Initialize()
         {
-        }
-    }
-
-    public class FormExtensions
-    {
-        public Form Get(int id)
-        {
-            return new Form
-            {
-                Title = "Test Form " + id,
-                Body = "This is a hard coded survey loaded via the widget extensions. Please fix me.",
-                Id = id,
-                GroupId = 1
-            };
-
-        }
-
-        public PagedList<Form> List()
-        {
-            return new PagedList<Form>
-            {
-                Get(1),
-                Get(2),
-                Get(3)
-        };
         }
     }
 }

@@ -35,7 +35,8 @@ namespace TelligentCommunityForms
         {
             typeof(FormsContainerPanels),
             typeof(FormsExtensionsPlugin),
-            typeof(FormsUrlExtensionsPlugin)
+            typeof(FormsUrlExtensionsPlugin),
+            typeof(FormsWidgetProvider)
         };
 
         #region IApplicationType Members
@@ -106,6 +107,44 @@ namespace TelligentCommunityForms
       <contentFragmentTabs />
     </contentFragmentPage>"
             });
+
+            controller.AddPage("forms.new", "new", null, null, "forms-createedit", new PageDefinitionOptions
+            {
+                ParseContext = null,
+                HasApplicationContext = false,
+                TitleFunction = () => _translationController.GetLanguageResourceValue("page-forms-createedit"),
+                DescriptionFunction = () => _translationController.GetLanguageResourceValue("page-forms-createedit-description"),
+                DefaultPageXml =
+    @"<contentFragmentPage pageName=""forms-createedit"" isCustom=""false"" layout=""Content"" themeType=""c6108064-af65-11dd-b074-de1a56d89593"">
+      <regions>
+        <region regionName=""Content"">
+          <contentFragments>
+             <contentFragment type=""Telligent.Evolution.ScriptedContentFragments.ScriptedContentFragment, Telligent.Evolution.ScriptedContentFragments::8e73f2dfbfa84f77b4b438831314f091"" showHeader=""True"" cssClassAddition=""with-spacing responsive-1"" isLocked=""False"" configuration=""fragmentHeader=%24%7Bresource%3ACore_ApiKeyList_Name%7D"" />
+          </contentFragments>
+        </region>
+      </regions>
+      <contentFragmentTabs />
+    </contentFragmentPage>"
+            });
+
+            controller.AddPage("forms.edit", "{id}/edit", null, null, "forms-createedit", new PageDefinitionOptions
+            {
+                ParseContext = null,
+                HasApplicationContext = false,
+                TitleFunction = () => _translationController.GetLanguageResourceValue("page-forms-createedit"),
+                DescriptionFunction = () => _translationController.GetLanguageResourceValue("page-forms-createedit-description"),
+                DefaultPageXml =
+    @"<contentFragmentPage pageName=""forms-createedit"" isCustom=""false"" layout=""Content"" themeType=""c6108064-af65-11dd-b074-de1a56d89593"">
+      <regions>
+        <region regionName=""Content"">
+          <contentFragments>
+            <contentFragment type=""Telligent.Evolution.ScriptedContentFragments.ScriptedContentFragment, Telligent.Evolution.ScriptedContentFragments::8e73f2dfbfa84f77b4b438831314f091"" showHeader=""True"" cssClassAddition=""with-spacing responsive-1"" isLocked=""False"" configuration=""fragmentHeader=%24%7Bresource%3ACore_ApiKeyList_Name%7D"" />
+          </contentFragments>
+        </region>
+      </regions>
+      <contentFragmentTabs />
+    </contentFragmentPage>"
+            });
         }
 
         #endregion
@@ -147,6 +186,8 @@ namespace TelligentCommunityForms
                 t.Set("application_type_name", "Forms & Surveys");
                 t.Set("page-forms-list", "Forms & Surveys");
                 t.Set("page-forms-list-description", "The homepage for viewing Forms and Surveys");
+                t.Set("page-forms-createdit", "Create/Edit Forms & Surveys");
+                t.Set("page-forms-createdit-description", "Enables Form and Survey editing.");
 
                 return new[] { t };
             }

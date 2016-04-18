@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Telligent.Evolution.Extensibility;
 using Telligent.Evolution.Extensibility.Api.Entities.Version1;
 using Telligent.Evolution.Extensibility.Api.Version1;
@@ -60,5 +61,7 @@ namespace TelligentCommunityForms
         public Guid ApplicationTypeId => Constants.ApplicationTypeId;
 
         public IContainer Container => Apis.Get<IGroups>().GetRootGroup();
+
+        public IList<FormField> Fields { get; set; }
     }
 }
